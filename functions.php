@@ -22,6 +22,8 @@
  * @since Twenty Twelve 1.0
  */
 
+include( get_stylesheet_directory() . '/inc/theme.php' );
+
 // Set up the content width value based on the theme's design and stylesheet.
 if ( ! isset( $content_width ) )
 	$content_width = 625;
