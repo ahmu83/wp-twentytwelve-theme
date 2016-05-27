@@ -18,7 +18,8 @@ function theme_additional_body_classes( $classes ) {
 	global $post;
 	
 	if ( isset( $post ) ) $classes[] = $post->post_type . '-' . $post->post_name;
-	if ( get_field( 'body_class' ) ) $classes[] = get_field( 'body_class' );
+	if ( get_field( 'hide_page_title' ) ) $classes[] = 'hide_page_title';
+	if ( get_field( 'body_class_names' ) ) $classes[] = get_field( 'body_class_names' );
 
 	return $classes;
 
@@ -141,6 +142,26 @@ function get_sidebar_func( $atts ) {
 }
 add_shortcode( 'get_sidebar', 'get_sidebar_func' );
 
+function disable_wpautop( $content ) {
+
+  global $post;
+  
+  $disable_autop = get_field('disable_autop', $post->ID);
+
+  if ($disable_autop) {
+
+    remove_filter('the_content', 'wpautop');
+
+  } else {
+
+    add_filter('the_content', 'wpautop');
+
+  }
+  
+  return $content;
+
+}
+add_filter('the_content', 'disable_wpautop', 9);
 
 
 
